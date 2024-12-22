@@ -1,42 +1,31 @@
-# Import necessary libraries
-from flask import Flask, render_template, request
+#from cgitb import text
+from flask import Flask,render_template,request
 import model 
+app = Flask('__name__')
 
-application = Flask('__name__')
-
-# List of valid user IDs
-allowed_user_ids = ['00sab00', '1234', 'zippy', 'zburt5', 'joshua', 'dorothy w', 'rebecca', 
-                    'walker557', 'samantha', 'raeanne', 'kimmie', 'cassie', 'moore222']
-
-@application.route('/')
-def home_page():
-    """Render the home page."""
+valid_userid = ['00sab00','1234','zippy','zburt5','joshua','dorothy w','rebecca','walker557','samantha','raeanne','kimmie','cassie','moore222']
+@app.route('/')
+def view():
     return render_template('index.html')
 
-@application.route('/get_recommendations', methods=['POST'])
-def fetch_top5_recommendations():
-    """Handle recommendations request."""
+@app.route('/recommend',methods=['POST'])
+def recommend_top5():
     print(request.method)
-    input_username = request.form['User Name']
-    print('Provided Username =', input_username)
+    user_name = request.form['User Name']
+    print('User name=',user_name)
     
-    if input_username in allowed_user_ids and request.method == 'POST':
-        top_products = recommender_model.suggest_products(input_username)
-        print(top_products.head())
-        top5_recommendations = recommender_model.top_rated_products(top_products)
-        
-        return render_template(
-            'index.html', 
-            column_names=top5_recommendations.columns.values, 
-            row_data=list(top5_recommendations.values.tolist()), 
-            zip=zip, 
-            text='Recommended products'
-        )
-    elif input_username not in allowed_user_ids:
-        return render_template('index.html', text='No recommendations found for the user')
+    if  user_name in valid_userid and request.method == 'POST':
+            top20_products = model.recommend_products(user_name)
+            print(top20_products.head())
+            get_top5 = model.top5_products(top20_products)
+            #return render_template('index.html',tables=[get_top5.to_html(classes='data',header=False,index=False)],text='Recommended products')
+            return render_template('index.html',column_names=get_top5.columns.values, row_data=list(get_top5.values.tolist()), zip=zip,text='Recommended products')
+    elif not user_name in  valid_userid:
+        return render_template('index.html',text='No Recommendation found for the user')
     else:
         return render_template('index.html')
 
 if __name__ == '__main__':
-    application.debug = False
-    application.run()
+    app.debug=False
+
+    app.run()
