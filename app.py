@@ -15,9 +15,9 @@ def recommend_top5():
     print('User name=',user_name)
     
     if  user_name in valid_userid and request.method == 'POST':
-            top20_products = model.recommend_products(user_name)
+            top20_products = model.suggest_products(user_name)
             print(top20_products.head())
-            get_top5 = model.top5_products(top20_products)
+            get_top5 = model.top_rated_products(top20_products)
             #return render_template('index.html',tables=[get_top5.to_html(classes='data',header=False,index=False)],text='Recommended products')
             return render_template('index.html',column_names=get_top5.columns.values, row_data=list(get_top5.values.tolist()), zip=zip,text='Recommended products')
     elif not user_name in  valid_userid:
