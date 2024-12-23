@@ -1,1 +1,1 @@
-web: gunicorn --workers=3 --worker-class=gthread app:app
+web: gunicorn app:app
