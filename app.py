@@ -1,8 +1,9 @@
 #from cgitb import text
-import nltk
-
+import nltk 
+print("NLTK Version:", nltk.__version__)
 # Download NLTK corpora before starting the app
 nltk.download('punkt')  # Replace with the corpora you need, e.g., 'stopwords', 'wordnet'
+nltk.download('punkt_tab') # This line is added to download the missing resource.
 
 from flask import Flask,render_template,request
 import model 
