@@ -1,4 +1,9 @@
 #from cgitb import text
+import nltk
+
+# Download NLTK corpora before starting the app
+nltk.download('punkt')  # Replace with the corpora you need, e.g., 'stopwords', 'wordnet'
+
 from flask import Flask,render_template,request
 import model 
 app = Flask('__name__')
