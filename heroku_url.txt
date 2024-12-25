@@ -1,1 +1,1 @@
-https://senti-cart-8426d23d7955.herokuapp.com/
+The app is hosted on the following URL: https://senti-cart-8426d23d7955.herokuapp.com/
