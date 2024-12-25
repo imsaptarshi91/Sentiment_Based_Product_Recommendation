@@ -1,4 +1,4 @@
-Demo URL: https://senti-cart-087174508f45.herokuapp.com/
+Demo URL: https://senti-cart-8426d23d7955.herokuapp.com/
 
 Problem Statement:
 
